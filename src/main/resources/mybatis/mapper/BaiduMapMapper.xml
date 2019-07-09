@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adb.adblab.generalservice.mapper.BaiduMapMapper">
+  <resultMap id="BaseResultMap" type="com.adb.adblab.generalservice.entity.BaiduMap">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="detail" jdbcType="INTEGER" property="detail" />
+    <result column="uid" jdbcType="VARCHAR" property="uid" />
+  </resultMap>
+</mapper>

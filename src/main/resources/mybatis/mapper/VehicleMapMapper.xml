@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adb.adblab.generalservice.mapper.VehicleMapMapper">
+  <resultMap id="BaseResultMap" type="com.adb.adblab.generalservice.entity.VehicleMap">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="pcode" jdbcType="VARCHAR" property="pcode" />
+    <result column="biz_ext" jdbcType="VARCHAR" property="bizExt" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="gridcode" jdbcType="VARCHAR" property="gridcode" />
+    <result column="typecode" jdbcType="VARCHAR" property="typecode" />
+    <result column="citycode" jdbcType="VARCHAR" property="citycode" />
+    <result column="adname" jdbcType="VARCHAR" property="adname" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="event" jdbcType="VARCHAR" property="event" />
+    <result column="entr_location" jdbcType="VARCHAR" property="entrLocation" />
+    <result column="timestamp" jdbcType="VARCHAR" property="timestamp" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="adcode" jdbcType="VARCHAR" property="adcode" />
+    <result column="pname" jdbcType="VARCHAR" property="pname" />
+    <result column="cityname" jdbcType="VARCHAR" property="cityname" />
+    <result column="match" jdbcType="VARCHAR" property="match" />
+    <result column="business_area" jdbcType="VARCHAR" property="businessArea" />
+    <result column="indoor_data" jdbcType="VARCHAR" property="indoorData" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+    <result column="navi_poiid" jdbcType="VARCHAR" property="naviPoiid" />
+    <result column="brand_name" jdbcType="VARCHAR" property="brandName" />
+  </resultMap>
+</mapper>

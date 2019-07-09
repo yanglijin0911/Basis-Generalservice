@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adb.adblab.generalservice.mapper.CountStreetShopMapper">
+  <resultMap id="BaseResultMap" type="com.adb.adblab.generalservice.entity.CountStreetShop">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="pname" jdbcType="VARCHAR" property="pname" />
+    <result column="cityname" jdbcType="VARCHAR" property="cityname" />
+    <result column="adname" jdbcType="VARCHAR" property="adname" />
+    <result column="street_address" jdbcType="VARCHAR" property="streetAddress" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+  </resultMap>
+</mapper>
