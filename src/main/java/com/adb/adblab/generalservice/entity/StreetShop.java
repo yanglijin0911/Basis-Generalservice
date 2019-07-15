@@ -32,6 +32,9 @@ public class StreetShop {
     @Column(name = "`brand_name`")
     private String brandName;
 
+    @Column(name = "`road_location`")
+    private String roadLocation;
+
     /**
      * @return id
      */
@@ -156,5 +159,19 @@ public class StreetShop {
      */
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    /**
+     * @return road_location
+     */
+    public String getRoadLocation() {
+        return roadLocation;
+    }
+
+    /**
+     * @param roadLocation
+     */
+    public void setRoadLocation(String roadLocation) {
+        this.roadLocation = roadLocation;
     }
 }

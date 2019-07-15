@@ -11,7 +11,7 @@ import java.util.List;
 public interface CountStreetShopExtMapper extends Mapper<CountStreetShop> {
 
     @RequestMapping("com.adb.adblab.generalservice.entity.CountStreetShop")
-    @Select("select pname,cityname,adname,street_address as streetAddress,number from count_street_shop where number > #{number}")
+    @Select("select * from count_street_shop where number > #{number}")
     List<CountStreetShop> selectByNumber(@Param("number") Integer number);
 
 }

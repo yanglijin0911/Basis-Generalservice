@@ -9,6 +9,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -18,6 +25,9 @@ import java.util.List;
 
 @Service
 public class CountStreetShopService {
+
+    private static final String gdurl = "https://restapi.amap.com/v3/road/roadname?";
+    private static final String key = "cf2ce6129415e8ff02e6e729eb6339b2";
 
     @Autowired
     private VehicleMapExtMapper vmMapper;
@@ -33,10 +43,23 @@ public class CountStreetShopService {
      * @param number
      * @return
      */
-    public JSONArray countStreetShop(Integer number){
+    public JSONArray countStreetShop(String city,Integer number){
         JSONArray output = new JSONArray();
-        //同一条路或街道大于3家的店铺
-        List<CountStreetShop> countStreetShops = countStreetShopExtMapper.selectByNumber(number);
+        List<CountStreetShop> countStreetShops =null;
+        if(StringUtils.isBlank(city)){
+            //同一条路或街道大于3家的店铺
+           countStreetShops = countStreetShopExtMapper.selectByNumber(number);
+
+        }else {
+            Example example = new Example(CountStreetShop.class);
+            if(city.contains("上海") || city.contains("北京") || city.contains("天津") || city.contains("重庆")){
+                example.createCriteria().andEqualTo("pname",city).andEqualTo("number",number);
+            }else {
+                example.createCriteria().andEqualTo("cityname",city).andEqualTo("number",number);
+            }
+            countStreetShops = countStreetShopExtMapper.selectByExample(example);
+        }
+
         for (CountStreetShop css:countStreetShops) {
             JSONObject output0 = new JSONObject();
             output0.put("city",css.getPname());
@@ -44,10 +67,50 @@ public class CountStreetShopService {
             output0.put("street",css.getStreetAddress());
             output0.put("number",css.getNumber());
 
-            List<StreetShop> StreetShops = streetShopExtMapper.selectByPnameAndCityname(css.getPname(), css.getCityname(), css.getAdname(),css.getStreetAddress());
+            List<StreetShop> StreetShops = streetShopExtMapper.selectByPnameAndCityname(css.getPname(), css.getCityname(),
+                    css.getAdname(),css.getStreetAddress());
+//            for (StreetShop sp : StreetShops) {
+//                if(StringUtils.isBlank(sp.getRoadLocation())){
+//                    String roadLocation = getRoadLocation(sp.getCityname(), sp.getStreetAddress());
+//                    sp.setRoadLocation(roadLocation);
+//
+//                    streetShopExtMapper.updateByPrimaryKey(sp);
+//                }
+//            }
             output0.put("shops",JSONArray.parseArray(JSON.toJSONString(StreetShops)));
             output.add(output0);
         }
+        return output;
+    }
+
+    public JSONObject queryShopNumBycity(String cityname){
+        JSONObject output = new JSONObject();
+        Example example = new Example(StreetShop.class);
+        example.createCriteria().andEqualTo("cityname",cityname);
+        List<StreetShop> streetShops = streetShopExtMapper.selectByExample(example);
+        output.put("statusCode",200);
+        output.put("msg","成功");
+        output.put("data",streetShops.size());
+        return output;
+    }
+
+    public JSONObject queryShopInfoBycityAndBrand(String cityname,String brand){
+        JSONObject output = new JSONObject();
+        Example example = new Example(StreetShop.class);
+        example.createCriteria().andEqualTo("cityname",cityname).andEqualTo("brand",brand);
+        List<StreetShop> streetShops = streetShopExtMapper.selectByExample(example);
+        output.put("statusCode",200);
+        output.put("msg","成功");
+        output.put("data",streetShops);
+        return output;
+    }
+
+    public JSONObject queryAllCity(){
+        JSONObject output = new JSONObject();
+        List<String> list = streetShopExtMapper.selectAllCity();
+        output.put("statusCode",200);
+        output.put("msg","成功");
+        output.put("data",JSONArray.parseArray(JSON.toJSONString(list)));
         return output;
     }
 
@@ -107,13 +170,48 @@ public class CountStreetShopService {
         }
     }
 
-
     public void insertCountStreetShop(){
-
         List<CountStreetShop> CountStreetShops = streetShopExtMapper.selectStreetShopByGroup();
         for (CountStreetShop css :CountStreetShops) {
-
             countStreetShopExtMapper.insertSelective(css);
         }
+    }
+
+    public String getRoadLocation(String city,String road){
+        String url = gdurl+"keywords="+road+"&city="+city+"&offset=1&output=json"+"&key="+key;
+//        System.out.println(url);
+
+        JSONArray roadLocation = null;
+        try {
+            HttpGet request = new HttpGet(url);//这里发送get请求
+            HttpClient httpClient = new DefaultHttpClient();
+            // 通过请求对象获取响应对象
+            HttpResponse response = httpClient.execute(request);
+
+            // 判断网络连接状态码是否正常(0--200都数正常)
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                HttpEntity entity = response.getEntity();
+                String result= EntityUtils.toString(response.getEntity(),"utf-8");
+
+                JSONObject mapJson = JSONObject.parseObject(result);
+                roadLocation = mapJson.getJSONArray("roads").getJSONObject(0).getJSONArray("polylines");
+//                System.out.println(roadLocation);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return roadLocation.toJSONString();
+    }
+
+    public void updateRoadLocation(){
+        List<StreetShop> streetShops = streetShopExtMapper.selectAll();
+        for (StreetShop s:streetShops) {
+            String roadLocation = getRoadLocation(s.getCityname(), s.getStreetAddress());
+            s.setRoadLocation(roadLocation);
+            streetShopExtMapper.updateByPrimaryKey(s);
+            System.out.println(JSON.toJSON(s));
+        }
+
     }
 }

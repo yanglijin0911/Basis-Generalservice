@@ -42,6 +42,11 @@ public class QueryTopByCityOrBrandService {
     }
 
 
+    /**
+     *
+     * @param brand
+     * @return
+     */
     public JSONObject queryTopCityByBrand(String brand){
         JSONObject output = new JSONObject();
         Example example = new Example(TopCityByBrand.class);

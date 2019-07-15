@@ -1,7 +1,9 @@
 package com.adb.adblab.generalservice.sevicetest;
 
 import com.adb.adblab.generalservice.GeneralserviceApplicationTests;
+import com.adb.adblab.generalservice.mapper.StreetShopExtMapper;
 import com.adb.adblab.generalservice.service.*;
+import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -13,6 +15,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = GeneralserviceApplicationTests.class)
@@ -27,6 +31,13 @@ public class GetLocationTest {
     BaiduPOI baiduPOI;
     @Autowired
     CountStreetShopService cps;
+    @Autowired
+    CountStreetShopService countStreetShopService;
+    @Autowired
+    ShopNumPerBrandService shopNumPerBrandService;
+
+    @Autowired
+    StreetShopExtMapper streetShopExtMapper;
 
 
     @Test
@@ -90,6 +101,25 @@ public class GetLocationTest {
     public void getAllcity(){
 //        topByCityOrBrandService.topBrandTheCity();
         queryTopByCityOrBrandService.topCityTheBrand();
+    }
+
+    @Test
+    public void getLocation(){
+//        String roadLocation = countStreetShopService.getRoadLocation("幸福大街", "北京");
+//        System.out.println(roadLocation);
+        countStreetShopService.updateRoadLocation();
+    }
+
+    @Test
+    public void testShopNumPerBrand(){
+//        shopNumPerBrandService.cityShopNumPerBrand(5);
+    }
+
+    @Test
+    public void insertCity(){
+        List<String> list = streetShopExtMapper.selectAllCity();
+        System.out.println(list.size());
+        System.out.println(JSON.toJSON(list));
     }
 }
 

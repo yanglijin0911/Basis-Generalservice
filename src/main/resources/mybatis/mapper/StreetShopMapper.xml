@@ -14,5 +14,6 @@
     <result column="location" jdbcType="VARCHAR" property="location" />
     <result column="tel" jdbcType="VARCHAR" property="tel" />
     <result column="brand_name" jdbcType="VARCHAR" property="brandName" />
+    <result column="road_location" jdbcType="LONGVARCHAR" property="roadLocation" />
   </resultMap>
 </mapper>

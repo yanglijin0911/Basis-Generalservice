@@ -37,7 +37,7 @@ public interface VehicleMapExtMapper extends Mapper<VehicleMap> {
     @Select("select t.cityname as cityname,t.brand_name as brandName,t.num as shopNum from (SELECT cityname,brand_name , count(brand_name) as num from vehicle_map WHERE cityname =#{cityname} GROUP BY brand_name) t ORDER BY t.num desc limit 5")
     List<TopBrandByCity> selectTopBrandByCityname(@Param("cityname") String cityname);
 
-    @Select("select t.brand_name as brandName,t.cityname as cityname,t.num as shopNum from (SELECT brand_name , cityname, count(brand_name) as num from vehicle_map WHERE brand_name = #{brandname} GROUP BY cityname) t ORDER BY t.num desc limit 5")
+    @Select("select t.brand_name as brandName,t.cityname as cityname,t.num as shopNum from (SELECT brand_name , cityname, count(brand_name) as num from vehicle_map WHERE brand_name = #{brandname} GROUP BY cityname) t ORDER BY t.num desc limit 10")
     List<TopCityByBrand> selectTopCityByBrand(@Param("brandname") String brandname);
 
 
