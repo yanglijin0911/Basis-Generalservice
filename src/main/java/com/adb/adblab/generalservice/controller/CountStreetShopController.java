@@ -1,14 +1,12 @@
 package com.adb.adblab.generalservice.controller;
 
+import com.adb.adblab.generalservice.input.QueryShopInfoBycityAndBrandInput;
 import com.adb.adblab.generalservice.service.CountStreetShopService;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
@@ -33,10 +31,10 @@ public class CountStreetShopController {
     }
 
 
-    @RequestMapping(value="queryShopInfoBycityAndBrand",method = RequestMethod.GET)
-    public JSONObject queryShopInfoBycityAndBrand(@RequestParam(value = "cityName") String cityName,@RequestParam(value = "brand") String brand){
+    @RequestMapping(value="queryShopInfoBycityAndBrand",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
+    public JSONObject queryShopInfoBycityAndBrand(@RequestBody QueryShopInfoBycityAndBrandInput input){
 
-        JSONObject output = countStreetShopService.queryShopInfoBycityAndBrand(cityName,brand);
+        JSONObject output = countStreetShopService.queryShopInfoBycityAndBrand(input);
         return output;
     }
 

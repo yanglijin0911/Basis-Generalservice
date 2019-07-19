@@ -37,10 +37,10 @@ public class QueryVehShopController {
         return vehNames;
     }
 
-    @RequestMapping(value="countNumByProvincial",method = RequestMethod.GET)
-    public JSONObject countNumByProvincial(@RequestParam(value = "pname") String pname){
+    @RequestMapping(value="countShopNumByProvincial",method = RequestMethod.GET)
+    public JSONObject countShopNumByProvincial(@RequestParam(value = "pname") String pname){
 
-        JSONObject output = queryVehShopService.countNumByProvincial(pname);
+        JSONObject output = queryVehShopService.countShopNumByProvincial(pname);
         return output;
     }
 

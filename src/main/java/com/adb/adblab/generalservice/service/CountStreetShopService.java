@@ -1,6 +1,7 @@
 package com.adb.adblab.generalservice.service;
 
 import com.adb.adblab.generalservice.entity.*;
+import com.adb.adblab.generalservice.input.QueryShopInfoBycityAndBrandInput;
 import com.adb.adblab.generalservice.mapper.CountStreetShopExtMapper;
 import com.adb.adblab.generalservice.mapper.ProvincialExtMapper;
 import com.adb.adblab.generalservice.mapper.StreetShopExtMapper;
@@ -94,11 +95,37 @@ public class CountStreetShopService {
         return output;
     }
 
-    public JSONObject queryShopInfoBycityAndBrand(String cityname,String brand){
+    public JSONObject queryShopInfoBycityAndBrand(QueryShopInfoBycityAndBrandInput input){
         JSONObject output = new JSONObject();
-        Example example = new Example(StreetShop.class);
-        example.createCriteria().andEqualTo("cityname",cityname).andEqualTo("brand",brand);
-        List<StreetShop> streetShops = streetShopExtMapper.selectByExample(example);
+        List<String> brandNames = input.getBrandNames();
+        String cityName = input.getCityName();
+        List<StreetShop> streetShops = null;
+
+        if(StringUtils.isBlank(cityName) && CollectionUtils.isEmpty(brandNames)){
+            streetShops = streetShopExtMapper.selectAll();
+            System.out.println(streetShops.size());
+            return output;
+        }
+
+        if(StringUtils.isNotBlank(cityName) && !CollectionUtils.isEmpty(brandNames)){
+            Example example = new Example(StreetShop.class);
+            example.createCriteria().andLike("cityname", "%" + cityName + "%")
+                    .andIn("brandName",brandNames);
+            streetShops = streetShopExtMapper.selectByExample(example);
+        }
+
+        if(StringUtils.isBlank(cityName) && !CollectionUtils.isEmpty(brandNames)){
+            Example example = new Example(StreetShop.class);
+            example.createCriteria().andIn("brandName",brandNames);
+            streetShops = streetShopExtMapper.selectByExample(example);
+        }
+
+        if(StringUtils.isNotBlank(cityName) && CollectionUtils.isEmpty(brandNames)){
+            Example example = new Example(StreetShop.class);
+            example.createCriteria().andEqualTo("cityname",cityName);
+            streetShops = streetShopExtMapper.selectByExample(example);
+        }
+
         output.put("statusCode",200);
         output.put("msg","成功");
         output.put("data",streetShops);

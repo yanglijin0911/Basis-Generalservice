@@ -1,5 +1,6 @@
 package com.adb.adblab.generalservice.mapper;
 
+import com.adb.adblab.generalservice.entity.CityCode;
 import com.adb.adblab.generalservice.entity.TopBrandByCity;
 import com.adb.adblab.generalservice.entity.TopCityByBrand;
 import com.adb.adblab.generalservice.entity.VehicleMap;
@@ -34,11 +35,14 @@ public interface VehicleMapExtMapper extends Mapper<VehicleMap> {
     @Select("SELECT t.cityname from (SELECT cityname,count(*) from vehicle_map GROUP BY cityname) t")
     List<String> getAllCity();
 
-    @Select("select t.cityname as cityname,t.brand_name as brandName,t.num as shopNum from (SELECT cityname,brand_name , count(brand_name) as num from vehicle_map WHERE cityname =#{cityname} GROUP BY brand_name) t ORDER BY t.num desc limit 5")
+    @Select("select t.cityname as cityname,t.brand_name as brandName,t.num as shopNum from (SELECT cityname,brand_name , count(brand_name) as num from vehicle_map WHERE cityname =#{cityname} GROUP BY brand_name) t ORDER BY t.num desc limit 10")
     List<TopBrandByCity> selectTopBrandByCityname(@Param("cityname") String cityname);
 
     @Select("select t.brand_name as brandName,t.cityname as cityname,t.num as shopNum from (SELECT brand_name , cityname, count(brand_name) as num from vehicle_map WHERE brand_name = #{brandname} GROUP BY cityname) t ORDER BY t.num desc limit 10")
     List<TopCityByBrand> selectTopCityByBrand(@Param("brandname") String brandname);
 
+
+//    @Select("select pname,adname as cityname,adcode  as cityCode from vehicle_map WHERE pname ='重庆市' GROUP BY adname,adcode;")
+//    List<CityCode> selectTest();
 
 }

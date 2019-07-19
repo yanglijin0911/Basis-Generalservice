@@ -100,16 +100,14 @@ public class QueryVehShopService {
      * 以城市维度做统计
      * @return
      */
-    public JSONObject countNumByProvincial(String pname){
+    public JSONObject countShopNumByProvincial(String pname){
         JSONObject output = new JSONObject();
         List list = new ArrayList<>();
 
         if(StringUtils.isBlank(pname)){
             list = countProvincialNumExtMapper.selectAll();
         }else {
-            Example example = new Example(CountProvincialCityname.class);
-            example.createCriteria().andEqualTo("pname",pname);
-            list = cpcMapper.selectByExample(example);
+            list = cpcMapper.selectCityShopNumWithCityCodeByProvincial(pname);
         }
 
         if(CollectionUtils.isEmpty(list)){

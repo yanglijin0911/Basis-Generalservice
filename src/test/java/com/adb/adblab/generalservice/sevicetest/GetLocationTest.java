@@ -1,7 +1,12 @@
 package com.adb.adblab.generalservice.sevicetest;
 
 import com.adb.adblab.generalservice.GeneralserviceApplicationTests;
+import com.adb.adblab.generalservice.entity.CityCode;
+import com.adb.adblab.generalservice.entity.CountProvincialCityname;
+import com.adb.adblab.generalservice.mapper.CityCodeExtMapper;
+import com.adb.adblab.generalservice.mapper.CountProvincialCitynameExtMapper;
 import com.adb.adblab.generalservice.mapper.StreetShopExtMapper;
+import com.adb.adblab.generalservice.mapper.VehicleMapExtMapper;
 import com.adb.adblab.generalservice.service.*;
 import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpResponse;
@@ -38,6 +43,14 @@ public class GetLocationTest {
 
     @Autowired
     StreetShopExtMapper streetShopExtMapper;
+
+    @Autowired
+    CountProvincialCitynameExtMapper countProvincialCitynameExtMapper;
+    @Autowired
+    VehicleMapExtMapper vehicleMapExtMapper;
+    @Autowired
+    CityCodeExtMapper cityCodeExtMapper;
+
 
 
     @Test
@@ -99,8 +112,9 @@ public class GetLocationTest {
 
     @Test
     public void getAllcity(){
-//        topByCityOrBrandService.topBrandTheCity();
-        queryTopByCityOrBrandService.topCityTheBrand();
+
+        queryTopByCityOrBrandService.topBrandTheCity();
+//        queryTopByCityOrBrandService.topCityTheBrand();
     }
 
     @Test
@@ -120,6 +134,29 @@ public class GetLocationTest {
         List<String> list = streetShopExtMapper.selectAllCity();
         System.out.println(list.size());
         System.out.println(JSON.toJSON(list));
+    }
+
+    @Test
+    public void insertCountProBrand(){
+        List<CountProvincialCityname> countProvincialCitynames = streetShopExtMapper.groupByPnameAndAdname("重庆市");
+
+        System.out.println(JSON.toJSONString(countProvincialCitynames));
+        System.out.println(countProvincialCitynames.size());
+//        for (CountProvincialCityname cpc:countProvincialCitynames) {
+//            countProvincialCitynameExtMapper.insertSelective(cpc);
+//        }
+    }
+
+    @Test
+    public void insertCityCode(){
+
+//        List<CityCode> cityCodes = vehicleMapExtMapper.selectTest();
+//        System.out.println(JSON.toJSONString(cityCodes));
+//        for (CityCode cc:cityCodes) {
+//            cityCodeExtMapper.insertSelective(cc);
+//        }
+
+
     }
 }
 

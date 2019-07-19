@@ -82,7 +82,7 @@
         <!--<table tableName="rt_function_module" />-->
         <!--<table tableName="count_provincial_num"/>-->
         <!--<table tableName="top_brand_by_city"/>-->
-        <table tableName="count_provincial_brand"/>
+        <table tableName="city_code"/>
         <!--<table tableName="properties"/>-->
         <!--<table tableName="interface_method"/>-->
         <!--<table tableName="interface_method_parameter"/>-->
