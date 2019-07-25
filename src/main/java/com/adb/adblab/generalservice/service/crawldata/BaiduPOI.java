@@ -1,4 +1,4 @@
-package com.adb.adblab.generalservice.service;
+package com.adb.adblab.generalservice.service.crawldata;
 
 import com.adb.adblab.generalservice.entity.BaiduMap;
 import com.adb.adblab.generalservice.entity.VehicleMap;

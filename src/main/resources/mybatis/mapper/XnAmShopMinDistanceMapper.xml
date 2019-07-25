@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adb.adblab.generalservice.mapper.XnAmShopMinDistanceMapper">
+  <resultMap id="BaseResultMap" type="com.adb.adblab.generalservice.entity.XnAmShopMinDistance">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="pname" jdbcType="VARCHAR" property="pname" />
+    <result column="cityname" jdbcType="VARCHAR" property="cityname" />
+    <result column="xn_address" jdbcType="VARCHAR" property="xnAddress" />
+    <result column="am_address" jdbcType="VARCHAR" property="amAddress" />
+    <result column="xn_location" jdbcType="VARCHAR" property="xnLocation" />
+    <result column="am_location" jdbcType="VARCHAR" property="amLocation" />
+    <result column="min_distance" jdbcType="DOUBLE" property="minDistance" />
+  </resultMap>
+</mapper>

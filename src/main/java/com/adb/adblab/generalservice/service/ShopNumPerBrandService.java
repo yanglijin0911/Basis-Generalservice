@@ -42,7 +42,7 @@ public class ShopNumPerBrandService {
                         if (o1.getNumber() > o2.getNumber()) {
                             return -1;
                         }
-                        if (o1.getNumber() > o2.getNumber()) {
+                        if (o1.getNumber() == o2.getNumber()) {
                             return 0;
                         }
                         return 1;

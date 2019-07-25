@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.adb.adblab.generalservice.mapper.CityGdpMapper">
+  <resultMap id="BaseResultMap" type="com.adb.adblab.generalservice.entity.CityGdp">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <result column="cityname" jdbcType="VARCHAR" property="cityname" />
+    <result column="gdp_eighteen" jdbcType="VARCHAR" property="gdpEighteen" />
+    <result column="population_num" jdbcType="VARCHAR" property="populationNum" />
+    <result column="per_capita_gdp" jdbcType="VARCHAR" property="perCapitaGdp" />
+    <result column="increment" jdbcType="VARCHAR" property="increment" />
+    <result column="increment_percent" jdbcType="VARCHAR" property="incrementPercent" />
+    <result column="gdp_seventeen" jdbcType="VARCHAR" property="gdpSeventeen" />
+  </resultMap>
+</mapper>

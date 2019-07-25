@@ -1,13 +1,15 @@
 package com.adb.adblab.generalservice.sevicetest;
 
 import com.adb.adblab.generalservice.GeneralserviceApplicationTests;
-import com.adb.adblab.generalservice.entity.CityCode;
 import com.adb.adblab.generalservice.entity.CountProvincialCityname;
 import com.adb.adblab.generalservice.mapper.CityCodeExtMapper;
 import com.adb.adblab.generalservice.mapper.CountProvincialCitynameExtMapper;
 import com.adb.adblab.generalservice.mapper.StreetShopExtMapper;
 import com.adb.adblab.generalservice.mapper.VehicleMapExtMapper;
 import com.adb.adblab.generalservice.service.*;
+import com.adb.adblab.generalservice.service.crawldata.BaiduPOI;
+import com.adb.adblab.generalservice.service.crawldata.CrawlMapDataService;
+import com.adb.adblab.generalservice.service.mapdistanced.XnToAmShopDistancedService;
 import com.alibaba.fastjson.JSON;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -27,7 +29,7 @@ import java.util.List;
 @SpringBootTest(classes = GeneralserviceApplicationTests.class)
 public class GetLocationTest {
     @Autowired
-    ShopLocationService shopLocationService;
+    CrawlMapDataService crawlMapDataService;
     @Autowired
     QueryVehShopService queryVehShopService;
     @Autowired
@@ -51,6 +53,8 @@ public class GetLocationTest {
     @Autowired
     CityCodeExtMapper cityCodeExtMapper;
 
+    @Autowired
+    XnToAmShopDistancedService xnToAmShopDistancedService;
 
 
     @Test
@@ -83,7 +87,7 @@ public class GetLocationTest {
     @Test
     public void LocationTest(){
 
-        shopLocationService.insetAllProData();
+        crawlMapDataService.insetAllProData();
 
     }
 
@@ -155,7 +159,7 @@ public class GetLocationTest {
 //        for (CityCode cc:cityCodes) {
 //            cityCodeExtMapper.insertSelective(cc);
 //        }
-
+        xnToAmShopDistancedService.getAmaShopOfMinDistanceFromXiaoniuShop();
 
     }
 }

@@ -1,7 +1,8 @@
-package com.adb.adblab.generalservice.service;
+package com.adb.adblab.generalservice.service.crawldata;
 
 import com.adb.adblab.generalservice.entity.VehicleMap;
 import com.adb.adblab.generalservice.mapper.VehicleMapExtMapper;
+import com.adb.adblab.generalservice.service.QueryVehShopService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class ShopLocationService {
+public class CrawlMapDataService {
 
     private static String urlNameString = "https://restapi.amap.com/v3/place/text?";
 
@@ -31,7 +32,7 @@ public class ShopLocationService {
      * @param city
      * @return
      */
-    public int getLocationFromAmap(String keyword,String city){
+    public int getShopInfoFromMap(String keyword,String city){
 
         int count =0;
         int i=1;
@@ -97,10 +98,9 @@ public class ShopLocationService {
         JSONArray pros = queryVehShopService.selectProvincials().getJSONArray("data");
         JSONArray vehNames = queryVehShopService.selectVehNames().getJSONArray("data");
 
-
         for(int i=0 ; i<pros.size(); i++){
             for(int j=6 ; j<vehNames.size() ;j++){
-                getLocationFromAmap(vehNames.getString(j),pros.getString(i));
+                getShopInfoFromMap(vehNames.getString(j),pros.getString(i));
             }
         }
     }
